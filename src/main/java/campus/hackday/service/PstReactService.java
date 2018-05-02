@@ -7,9 +7,11 @@ import campus.hackday.mapper.NgtReactMapper;
 import campus.hackday.mapper.PstReactMapper;
 import campus.hackday.model.ReactModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @SuppressWarnings("Duplicates")
+//@Async
 @Service
 public class PstReactService {
 
@@ -18,13 +20,13 @@ public class PstReactService {
   @Autowired
   private PstReactMapper pstReactMapper;
   @Autowired
-  private NgtReactMapper ngtReactMapper;
+  private NgtReactService ngtReactService;
 
   // Todo 공감 || 비공감 중 1가지만 가능해야 한다.
   public void pstReact(int postId, int commentId, int userId) throws IllegalAccessException {
     Comment comment = commentService.findById(commentId);
     PstReact pstReact = findByCommentIdAndUserId(commentId, userId);
-    NgtReact ngtReact = ngtReactMapper.findByCommentIdAndUserId(commentId, userId);
+    NgtReact ngtReact = ngtReactService.findByCommentIdAndUserId(commentId, userId);
 
     if (ngtReact != null) {
       throw new IllegalAccessException("이 댓글에 비공감하셨습니다.");

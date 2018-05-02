@@ -9,7 +9,7 @@ public class Comment {
   private int postId;
   private int userId;
   private String content;
-  private int pstReactCount;
-  private int ngtReactCount;
+  private int pCount;
+  private int nCount;
 
 }
