@@ -6,8 +6,8 @@ import lombok.Data;
 public class PstReact {
 
   private int id;
+  private int commentId;
   private int userId;
   private int postId;
-  private int commentId;
 
 }

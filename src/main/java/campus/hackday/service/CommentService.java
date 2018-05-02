@@ -17,4 +17,24 @@ public class CommentService {
     return commentMapper.findAllByPostId(postId);
   }
 
+  public Comment findById(int id) {
+    return commentMapper.findById(id);
+  }
+
+  void addPstReactCount(Comment comment) {
+    commentMapper.addPstReactCount(comment);
+  }
+
+  void subPstReactCount(Comment comment) {
+    commentMapper.subPstReactCount(comment);
+  }
+
+  void addNgtReactCount(Comment comment) {
+    commentMapper.addNgtReactCount(comment);
+  }
+
+  void subNgtReactCount(Comment comment) {
+    commentMapper.subNgtReactCount(comment);
+  }
+
 }

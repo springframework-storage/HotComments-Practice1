@@ -4,6 +4,8 @@ import campus.hackday.dto.Comment;
 import campus.hackday.model.DefaultResponse;
 import campus.hackday.model.StatusEnum;
 import campus.hackday.service.CommentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ import java.util.List;
 @RequestMapping("post")
 public class CommentController {
 
+  Logger logger = LoggerFactory.getLogger(getClass());
+
   @Autowired
   private CommentService commentService;
 
@@ -28,6 +32,9 @@ public class CommentController {
     res.setData(comments);
     res.setMsg(postId + "번 게시글의 댓글 목록");
     res.setStatusEnum(StatusEnum.SUCCESS);
+
+    logger.info("postId: {}", postId);
+
     return new ResponseEntity<>(res, HttpStatus.OK);
   }
 

@@ -10,4 +10,34 @@
         WHERE postId = #{postId}
     </select>
 
+    <select id="findById" resultType="Comment">
+        SELECT m.*
+        FROM Comment m
+        WHERE m.id = #{commentId}
+    </select>
+    
+    <update id="addPstReactCount">
+        UPDATE Comment SET
+          pstReactCount = #{pstReactCount} + 1
+        WHERE id = #{id}
+    </update>
+
+    <update id="subPstReactCount">
+        UPDATE Comment SET
+          pstReactCount = #{pstReactCount} - 1
+        WHERE id = #{id}
+    </update>
+
+    <update id="addNgtReactCount">
+        UPDATE Comment SET
+          ngtReactCount = #{ngtReactCount} + 1
+        WHERE id = #{id}
+    </update>
+
+    <update id="subNgtReactCount">
+        UPDATE Comment SET
+          ngtReactCount = #{ngtReactCount} - 1
+        WHERE id = #{id}
+    </update>
+
 </mapper>
