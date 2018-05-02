@@ -9,5 +9,7 @@
     </typeAliases>
     <mappers>
         <mapper resource="mapper/CommentMapper.xml"/>
+        <mapper resource="mapper/PstReactMapper.xml"/>
+        <mapper resource="mapper/NgtReactMapper.xml"/>
     </mappers>
 </configuration>
