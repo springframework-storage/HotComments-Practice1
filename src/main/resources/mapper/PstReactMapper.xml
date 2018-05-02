@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="campus.hackday.mapper.PstReactMapper">
+
+    <select id="findById" resultType="PstReact">
+        SELECT r.*
+        FROM PstReact r
+        WHERE commentId = #{commentId} AND userId = #{userId} AND postId = #{postId}
+    </select>
+
+    <select id="findByCommentIdAndUserId" resultType="PstReact">
+        SELECT r.*
+        FROM PstReact r
+        WHERE commentId = #{commentId} AND userId = #{userId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+      INSERT PstReact (commentId, userId, postId)
+      VALUES (#{commentId}, #{userId}, #{postId})
+    </insert>
+
+    <delete id="delete">
+      DELETE FROM PstReact
+      WHERE id = #{id}
+    </delete>
+
+</mapper>

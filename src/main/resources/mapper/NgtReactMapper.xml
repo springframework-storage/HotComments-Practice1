@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="campus.hackday.mapper.NgtReactMapper">
+
+    <select id="findById" resultType="NgtReact">
+        SELECT r.*
+        FROM NgtReact r
+        WHERE commentId = #{commentId} AND userId = #{userId} AND postId = #{postId}
+    </select>
+
+    <select id="findByCommentIdAndUserId" resultType="NgtReact">
+        SELECT r.*
+        FROM NgtReact r
+        WHERE commentId = #{commentId} AND userId = #{userId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+      INSERT NgtReact (commentId, userId, postId)
+      VALUES (#{commentId}, #{userId}, #{postId})
+    </insert>
+
+    <delete id="delete">
+      DELETE FROM NgtReact
+      WHERE id = #{id}
+    </delete>
+
+</mapper>
