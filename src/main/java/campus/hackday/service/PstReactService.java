@@ -3,15 +3,12 @@ package campus.hackday.service;
 import campus.hackday.dto.Comment;
 import campus.hackday.dto.NgtReact;
 import campus.hackday.dto.PstReact;
-import campus.hackday.mapper.NgtReactMapper;
 import campus.hackday.mapper.PstReactMapper;
 import campus.hackday.model.ReactModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @SuppressWarnings("Duplicates")
-//@Async
 @Service
 public class PstReactService {
 
