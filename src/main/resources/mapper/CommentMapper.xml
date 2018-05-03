@@ -38,12 +38,5 @@
         UPDATE Comment SET
           nCount = #{nCount} - 1
         WHERE id = #{id} AND postId = #{postId} AND userId = #{userId}
-    </update>
-
-    <!-- redis 관련 -->
-    <update id="setPstCount">
-        UPDATE Comment SET
-
-    </update>
 
 </mapper>
