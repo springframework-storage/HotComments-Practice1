@@ -7,13 +7,13 @@
     <select id="findById" resultType="NgtReact">
         SELECT r.*
         FROM NgtReact r
-        WHERE commentId = #{commentId} AND userId = #{userId} AND postId = #{postId}
+        WHERE r.id = #{id}
     </select>
 
     <select id="findByCommentIdAndUserId" resultType="NgtReact">
         SELECT r.*
         FROM NgtReact r
-        WHERE commentId = #{commentId} AND userId = #{userId}
+        WHERE r.commentId = #{commentId} AND r.userId = #{userId}
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">

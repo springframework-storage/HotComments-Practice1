@@ -7,7 +7,7 @@
     <select id="findAllByPostId" resultType="Comment">
         SELECT m.*
         FROM Comment m
-        WHERE postId = #{postId}
+        WHERE m.postId = #{postId}
     </select>
 
     <select id="findById" resultType="Comment">
@@ -18,26 +18,32 @@
     
     <update id="addPstReactCount">
         UPDATE Comment SET
-          pstReactCount = #{pstReactCount} + 1
-        WHERE id = #{id}
+          pCount = #{pCount} + 1
+        WHERE id = #{id} AND postId = #{postId} AND userId = #{userId}
     </update>
 
     <update id="subPstReactCount">
         UPDATE Comment SET
-          pstReactCount = #{pstReactCount} - 1
-        WHERE id = #{id}
+          pCount = #{pCount} - 1
+        WHERE id = #{id} AND postId = #{postId} AND userId = #{userId}
     </update>
 
     <update id="addNgtReactCount">
         UPDATE Comment SET
-          ngtReactCount = #{ngtReactCount} + 1
-        WHERE id = #{id}
+          nCount = #{nCount} + 1
+        WHERE id = #{id} AND postId = #{postId} AND userId = #{userId}
     </update>
 
     <update id="subNgtReactCount">
         UPDATE Comment SET
-          ngtReactCount = #{ngtReactCount} - 1
-        WHERE id = #{id}
+          nCount = #{nCount} - 1
+        WHERE id = #{id} AND postId = #{postId} AND userId = #{userId}
+    </update>
+
+    <!-- redis 관련 -->
+    <update id="setPstCount">
+        UPDATE Comment SET
+
     </update>
 
 </mapper>
