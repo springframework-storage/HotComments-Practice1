@@ -38,5 +38,6 @@
         UPDATE Comment SET
           nCount = #{nCount} - 1
         WHERE id = #{id} AND postId = #{postId} AND userId = #{userId}
+    </update>
 
 </mapper>
