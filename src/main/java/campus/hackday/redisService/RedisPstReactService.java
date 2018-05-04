@@ -39,7 +39,7 @@ public class RedisPstReactService {
   // 공감 삽입
   public void insert(int commentId, int userId) {
     if (redisNgtReactService.isMember(commentId, userId)) {
-      logger.error("이 댓글에 비공감하셨습니다.");
+      logger.error("이미 이 댓글에 비공감하셨습니다.");
     }
     else if (this.isMember(commentId, userId)) {
       setOperations.remove(KEY + Integer.toString(commentId), userId);

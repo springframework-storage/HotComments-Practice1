@@ -31,15 +31,15 @@ public class RedisNgtReactService {
     setOperations = redisTemplate.opsForSet();
   }
 
-  // 해당 키(댓글ID)에 대한 공감 개수
+  // 해당 키(댓글ID)에 대한 비공감 개수
   public int countMemberByKey(int commentId) {
     return setOperations.members(KEY + Integer.toString(commentId)).size();
   }
 
-  // 공감 삽입
+  // 비공감 삽입
   public void insert(int commentId, int userId) {
     if (redisPstReactService.isMember(commentId, userId)) {
-      logger.error("이 댓글에 공감하셨습니다.");
+      logger.error("이미 이 댓글에 공감하셨습니다.");
     }
     else if (this.isMember(commentId, userId)) {
       setOperations.remove(KEY + Integer.toString(commentId), userId);
