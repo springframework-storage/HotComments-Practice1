@@ -19,4 +19,7 @@ public interface CommentMapper {
   void addNgtReactCount(Comment comment);
   void subNgtReactCount(Comment comment);
 
+  // Redis -> MySQL
+  void updateReactCount(Comment comment);
+
 }

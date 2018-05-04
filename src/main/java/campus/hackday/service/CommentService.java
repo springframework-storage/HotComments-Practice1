@@ -37,4 +37,13 @@ public class CommentService {
     commentMapper.subNgtReactCount(comment);
   }
 
+  // Redis -> MySQL (pCount, nCount, total) by commentId
+  public void updateReactCount(int id, int pCount, int nCount) {
+    Comment comment = findById(id);
+    comment.setPCount(pCount);
+    comment.setNCount(nCount);
+    comment.setTotal(pCount - nCount);
+    commentMapper.updateReactCount(comment);
+  }
+
 }

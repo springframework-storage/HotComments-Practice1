@@ -39,4 +39,13 @@
           nCount = #{nCount} - 1
         WHERE id = #{id} AND postId = #{postId} AND userId = #{userId}
 
+    <!-- Redis -> MySQL (pCount, nCount, total) by commentId -->
+    <update id="updateReactCount">
+        UPDATE Comment SET
+          pCount = #{pCount},
+          nCount = #{nCount},
+          total = #{pCount} - #{nCount}
+        WHERE id = #{id}
+    </update>
+
 </mapper>

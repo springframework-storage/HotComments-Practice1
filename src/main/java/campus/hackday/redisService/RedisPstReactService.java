@@ -36,14 +36,17 @@ public class RedisPstReactService {
     return setOperations.members(KEY + Integer.toString(commentId)).size();
   }
 
-  // 공감 삽입
+  // 공감 요청
   public void insert(int commentId, int userId) {
+    // 이미 해당 댓글에 비공감 했을 경우
     if (redisNgtReactService.isMember(commentId, userId)) {
-      logger.error("이 댓글에 비공감하셨습니다.");
+      logger.error("이미 이 댓글에 비공감하셨습니다.");
     }
+    // 이미 해당 댓글에 공감 했던 경우 공감 삭제
     else if (this.isMember(commentId, userId)) {
       setOperations.remove(KEY + Integer.toString(commentId), userId);
     }
+    // 둘 다 아니라면 공감 삽입
     else {
       setOperations.add(KEY + Integer.toString(commentId), userId);
     }
