@@ -19,6 +19,7 @@ public interface CommentMapper {
   void addNgtReactCount(Comment comment);
   void subNgtReactCount(Comment comment);
 
+  // TODO 공감수에 대한 미세한 차이는 괜찮다고 보고 Transaction Isolation Level 을 바꿔보자 ??
   // Redis -> MySQL
   void updateReactCount(Comment comment);
 

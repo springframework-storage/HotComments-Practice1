@@ -17,6 +17,7 @@ public class ReactCountRedisToMySqlService {
   @Autowired
   private CommentService commentService;
 
+  // TODO Redis To MySQL
   // 공감/비공감 개수 갱신
   public void updateReactCount(int postId) {
     // 게시글 별(postId) 댓글 목록을 가져온다.
