@@ -11,5 +11,6 @@ public class Comment {
   private String content;
   private int pCount;
   private int nCount;
+  private int total;
 
 }
