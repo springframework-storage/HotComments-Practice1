@@ -36,7 +36,7 @@ public class NgtReactService {
     // 해당 댓글에 비공감한 적이 있으면
     else if (ngtReact != null) {
       commentService.subNgtReactCount(comment);
-      delete(ngtReact.getId());
+      delete(ngtReact.getCommentId(), ngtReact.getUserId());
     }
 
   }
@@ -53,8 +53,8 @@ public class NgtReactService {
     ngtReactMapper.insert(reactModel);
   }
 
-  public void delete(int id) {
-    ngtReactMapper.delete(id);
+  public void delete(int commentId, int userId) {
+    ngtReactMapper.delete(commentId, userId);
   }
 
   public void deleteAll() {

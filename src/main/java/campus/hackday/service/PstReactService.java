@@ -36,7 +36,7 @@ public class PstReactService {
     // 해당 댓글에 공감한 적이 있으면
     else if (pstReact != null) {
       commentService.subPstReactCount(comment);
-      delete(pstReact.getId());
+      delete(pstReact.getCommentId(), pstReact.getUserId());
     }
   }
 
@@ -52,8 +52,8 @@ public class PstReactService {
     pstReactMapper.insert(reactModel);
   }
 
-  public void delete(int id) {
-    pstReactMapper.delete(id);
+  public void delete(int commentId, int userId) {
+    pstReactMapper.delete(commentId, userId);
   }
 
   public void deleteAll() {

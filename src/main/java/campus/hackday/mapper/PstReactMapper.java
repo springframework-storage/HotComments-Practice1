@@ -13,7 +13,7 @@ public interface PstReactMapper {
   PstReact findByCommentIdAndUserId(@Param("commentId") int commentId, @Param("userId") int userId);
 
   void insert(ReactModel reactModel);
-  void delete(int id);
+  void delete(@Param("commentId") int commentId, @Param("userId") int userId);
   void deleteAll();
 
 }
