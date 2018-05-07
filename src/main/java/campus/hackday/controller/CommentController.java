@@ -32,20 +32,15 @@ public class CommentController {
 
   @GetMapping("{postId}/comments")
   public ResponseEntity<DefaultResponse> findAllCommentList(@PathVariable int postId) {
-
     long start = System.currentTimeMillis();    // 시작 시간
 
     DefaultResponse res = new DefaultResponse();
-//    List<Comment> comments = commentService.findAllByPostId(postId);
     List<Comment> comments = commentService.findAllByPostIdOrderByTotalDesc(postId);
 
     long end = System.currentTimeMillis();      // 끝 시간
-
     logger.info("EHCache의 수행 시간: {}", Long.toString(end - start));  // 시간 측정
 
-    // 해당 게시글의 댓글 목록을 조회할 때마다 그 게시글 댓글 목록의 공감/비공감 수 갱신
     reactCountRedisToMySqlService.updateReactCount(postId);
-    // Pst, Ngt Mysql에 저장
     reactCountRedisToMySqlService.updatePstReact(postId);
     reactCountRedisToMySqlService.updateNgtReact(postId);
 

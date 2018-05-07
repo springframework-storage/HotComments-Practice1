@@ -18,18 +18,11 @@ public class RedisReactController {
 
   private Logger logger = LoggerFactory.getLogger(getClass());
 
-//  @Autowired
-//  private RedisPstReactService redisPstReactService;
-//  @Autowired
-//  private RedisNgtReactService redisNgtReactService;
-//  @Autowired
-//  private CommentService commentService;
   @Autowired
   private PstNgtCheckService checkService;
 
-  /*
-  공감/비공감 API 통합
-   */
+
+  // 공감/비공감 API 통합
   @GetMapping("{commentId}/{userId}/{react}")
   public ResponseEntity<DefaultResponse> IntegrationReact
           (@PathVariable int commentId, @PathVariable int userId, @PathVariable String react) {
@@ -42,6 +35,8 @@ public class RedisReactController {
 //    res.setStatusEnum(StatusEnum.SUCCESS);
     return new ResponseEntity<>(res, HttpStatus.OK);
   }
+
+
 
 //  @GetMapping("{postId}/{commentId}/{userId}/pst")
 //  public ResponseEntity<DefaultResponse> pstReact

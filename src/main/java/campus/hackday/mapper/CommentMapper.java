@@ -8,9 +8,9 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
 
-  List<Comment> findAllByPostId(int postId);  // 해당 게시글 댓글 목록 조회
+  List<Comment> findAllByPostId(int postId);
   List<Comment> findAllByPostIdOrderByTotalDesc(int postId);
-  Comment findById(int id);                   // 해당 댓글 조회
+  Comment findById(int id);
 
   // 공감 +, -
   void addPstReactCount(Comment comment);

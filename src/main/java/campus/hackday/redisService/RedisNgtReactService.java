@@ -32,7 +32,7 @@ public class RedisNgtReactService {
     setOperations = redisTemplate.opsForSet();
   }
 
-  // 해당 키(댓글ID)에 대한 비공감 개수
+  // 해당 키(댓글ID)의 비공감 수
   public int countMemberByKey(int commentId) {
     return setOperations.members(KEY + Integer.toString(commentId)).size();
     // return setOperations.size(KEY + Integer.toString(commentId));

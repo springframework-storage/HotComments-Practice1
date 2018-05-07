@@ -30,7 +30,6 @@ public class ReactCountRedisToMySqlService {
 
   // 공감/비공감 개수 갱신
   public void updateReactCount(int postId) {
-    // 게시글 별(postId) 댓글 목록을 가져온다.
     List<Comment> comments = commentService.findAllByPostId(postId);
 
     for (Comment c : comments) {
@@ -58,13 +57,17 @@ public class ReactCountRedisToMySqlService {
       pstArr = redisPstReactService.members(c.getId()).toArray();
 
       for (int i = 0; i < pstArr.length; ++i) {
+
         int userId = Integer.parseInt(pstArr[i].toString());
         // Redis에 데이터가 있으면 MySQL에도 저장한다.
         if (redisPstReactService.isMember(c.getId(), userId) == true) {
           pstReactService.insert(c.getId(), userId, postId);
         }
+
       }
+
     }
+
   }
 
   // MySQL(NgtReact)에 해당 Redis 데이터 저장
@@ -82,13 +85,17 @@ public class ReactCountRedisToMySqlService {
       ngtArr = redisNgtReactService.members(c.getId()).toArray();
 
       for(int i = 0; i < ngtArr.length; ++i) {
+
         int userId = Integer.parseInt(ngtArr[i].toString());
         // Redis에 데이터가 있으면 MySQL에도 저장한다.
         if (redisNgtReactService.isMember(c.getId(), userId) == true) {
           ngtReactService.insert(c.getId(), userId, postId);
         }
+
       }
+
     }
+
   }
 
 }

@@ -19,7 +19,6 @@ public class PstReactService {
   @Autowired
   private NgtReactService ngtReactService;
 
-  // Todo 공감 || 비공감 중 1가지만 가능해야 한다.
   public void pstReact(int postId, int commentId, int userId) throws IllegalAccessException {
     Comment comment = commentService.findById(commentId);
     PstReact pstReact = findByCommentIdAndUserId(commentId, userId);
@@ -33,7 +32,7 @@ public class PstReactService {
       commentService.addPstReactCount(comment);
       insert(commentId, userId, postId);
     }
-    // 해당 댓글에 공감한 적이 있으면
+    // 해당 댓글에 공감한 상태이면 있으면
     else if (pstReact != null) {
       commentService.subPstReactCount(comment);
       delete(pstReact.getCommentId(), pstReact.getUserId());
