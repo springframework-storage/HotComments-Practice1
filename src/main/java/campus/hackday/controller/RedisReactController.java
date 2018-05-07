@@ -1,10 +1,7 @@
 package campus.hackday.controller;
 
-import campus.hackday.dto.Comment;
 import campus.hackday.model.DefaultResponse;
-import campus.hackday.service.CommentService;
-import campus.hackday.redisService.RedisNgtReactService;
-import campus.hackday.redisService.RedisPstReactService;
+import campus.hackday.redisService.PstNgtCheckService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +18,24 @@ public class RedisReactController {
 
   private Logger logger = LoggerFactory.getLogger(getClass());
 
+//  @Autowired
+//  private RedisPstReactService redisPstReactService;
+//  @Autowired
+//  private RedisNgtReactService redisNgtReactService;
+//  @Autowired
+//  private CommentService commentService;
   @Autowired
-  private RedisPstReactService redisPstReactService;
-  @Autowired
-  private RedisNgtReactService redisNgtReactService;
-  @Autowired
-  private CommentService commentService;
+  private PstNgtCheckService checkService;
 
-  @GetMapping("{postId}/{commentId}/{userId}/pst")
-  public ResponseEntity<DefaultResponse> pstReact
-          (@PathVariable int postId, @PathVariable int commentId, @PathVariable int userId) {
+  /*
+  공감/비공감 API 통합
+   */
+  @GetMapping("{commentId}/{userId}/{react}")
+  public ResponseEntity<DefaultResponse> IntegrationReact
+          (@PathVariable int commentId, @PathVariable int userId, @PathVariable String react) {
 
     DefaultResponse res = new DefaultResponse();
-    Comment comment = commentService.findById(commentId);
-
-    redisPstReactService.insert(comment.getId(), userId);
+    checkService.check(commentId, userId, react);
 
 //    res.setData();
 //    res.setMsg();
@@ -43,19 +43,34 @@ public class RedisReactController {
     return new ResponseEntity<>(res, HttpStatus.OK);
   }
 
-  @GetMapping("{postId}/{commentId}/{userId}/ngt")
-  public ResponseEntity<DefaultResponse> ngtReact
-          (@PathVariable int postId, @PathVariable int commentId, @PathVariable int userId) {
-
-    DefaultResponse res = new DefaultResponse();
-    Comment comment = commentService.findById(commentId);
-
-    redisNgtReactService.insert(comment.getId(), userId);
-
-//    res.setData();
-//    res.setMsg();
-//    res.setStatusEnum(StatusEnum.SUCCESS);
-    return new ResponseEntity<>(res, HttpStatus.OK);
-  }
+//  @GetMapping("{postId}/{commentId}/{userId}/pst")
+//  public ResponseEntity<DefaultResponse> pstReact
+//          (@PathVariable int postId, @PathVariable int commentId, @PathVariable int userId) {
+//
+//    DefaultResponse res = new DefaultResponse();
+//    Comment comment = commentService.findById(commentId);
+//
+//    redisPstReactService.insert(comment.getId(), userId);
+//
+////    res.setData();
+////    res.setMsg();
+////    res.setStatusEnum(StatusEnum.SUCCESS);
+//    return new ResponseEntity<>(res, HttpStatus.OK);
+//  }
+//
+//  @GetMapping("{postId}/{commentId}/{userId}/ngt")
+//  public ResponseEntity<DefaultResponse> ngtReact
+//          (@PathVariable int postId, @PathVariable int commentId, @PathVariable int userId) {
+//
+//    DefaultResponse res = new DefaultResponse();
+//    Comment comment = commentService.findById(commentId);
+//
+//    redisNgtReactService.insert(comment.getId(), userId);
+//
+////    res.setData();
+////    res.setMsg();
+////    res.setStatusEnum(StatusEnum.SUCCESS);
+//    return new ResponseEntity<>(res, HttpStatus.OK);
+//  }
 
 }
