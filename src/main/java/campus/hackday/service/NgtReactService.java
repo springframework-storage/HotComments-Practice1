@@ -57,4 +57,8 @@ public class NgtReactService {
     ngtReactMapper.delete(id);
   }
 
+  public void deleteAll() {
+    ngtReactMapper.deleteAll();
+  }
+
 }

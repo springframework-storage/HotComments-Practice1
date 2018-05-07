@@ -56,4 +56,8 @@ public class PstReactService {
     pstReactMapper.delete(id);
   }
 
+  public void deleteAll() {
+    pstReactMapper.deleteAll();
+  }
+
 }

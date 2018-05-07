@@ -14,5 +14,6 @@ public interface PstReactMapper {
 
   void insert(ReactModel reactModel);
   void delete(int id);
+  void deleteAll();
 
 }
