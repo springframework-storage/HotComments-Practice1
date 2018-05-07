@@ -36,7 +36,8 @@ public class CommentController {
     long start = System.currentTimeMillis();    // 시작 시간
 
     DefaultResponse res = new DefaultResponse();
-    List<Comment> comments = commentService.findAllByPostId(postId);
+//    List<Comment> comments = commentService.findAllByPostId(postId);
+    List<Comment> comments = commentService.findAllByPostIdOrderByTotalDesc(postId);
 
     long end = System.currentTimeMillis();      // 끝 시간
 
@@ -44,13 +45,13 @@ public class CommentController {
 
     // 해당 게시글의 댓글 목록을 조회할 때마다 그 게시글 댓글 목록의 공감/비공감 수 갱신
     reactCountRedisToMySqlService.updateReactCount(postId);
+    // Pst, Ngt Mysql에 저장
+    reactCountRedisToMySqlService.updatePstReact(postId);
+    reactCountRedisToMySqlService.updateNgtReact(postId);
 
     res.setData(comments);
     res.setMsg(postId + "번 게시글의 댓글 목록");
     res.setStatusEnum(StatusEnum.SUCCESS);
-
-    logger.info("postId: {}", postId);
-
     return new ResponseEntity<>(res, HttpStatus.OK);
   }
 
