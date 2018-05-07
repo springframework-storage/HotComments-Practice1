@@ -16,7 +16,7 @@
         WHERE r.commentId = #{commentId} AND r.userId = #{userId}
     </select>
 
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert">
       INSERT PstReact (commentId, userId, postId)
       VALUES (#{commentId}, #{userId}, #{postId})
     </insert>
