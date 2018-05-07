@@ -58,6 +58,22 @@ pom.xml
         <artifactId>spring-boot-starter-test</artifactId>
         <scope>test</scope>
     </dependency>
+
+    <!-- spring-boot-starter-cache는 캐시 관련 설정을 편리하게 지원해주는 패키지 -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-cache</artifactId>
+        <version>1.4.0.RELEASE</version>
+    </dependency>
+    <!--
+    spring-boot-starter-cache는 기본 CacheManager로 ConcurrentHashMap을 사용하고 있어서
+    Ehcache 2.x로 교체하기 위해 직접 의존성을 추가
+     -->
+    <dependency>
+        <groupId>net.sf.ehcache</groupId>
+        <artifactId>ehcache</artifactId>
+        <version>2.10.3</version>
+    </dependency>
 </dependencies>
 ```
 
