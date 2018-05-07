@@ -10,6 +10,13 @@
         WHERE m.postId = #{postId}
     </select>
 
+    <select id="findAllByPostIdOrderByTotalDesc" resultType="Comment">
+        SELECT m.*
+        FROM Comment m
+        WHERE m.postId = #{postId}
+        ORDER BY total DESC
+    </select>
+
     <select id="findById" resultType="Comment">
         SELECT m.*
         FROM Comment m

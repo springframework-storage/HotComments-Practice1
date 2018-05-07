@@ -9,6 +9,7 @@ import java.util.List;
 public interface CommentMapper {
 
   List<Comment> findAllByPostId(int postId);  // 해당 게시글 댓글 목록 조회
+  List<Comment> findAllByPostIdOrderByTotalDesc(int postId);
   Comment findById(int id);                   // 해당 댓글 조회
 
   // 공감 +, -
@@ -19,7 +20,6 @@ public interface CommentMapper {
   void addNgtReactCount(Comment comment);
   void subNgtReactCount(Comment comment);
 
-  // TODO 공감수에 대한 미세한 차이는 괜찮다고 보고 Transaction Isolation Level 을 바꿔보자 ??
   // Redis -> MySQL
   void updateReactCount(Comment comment);
 

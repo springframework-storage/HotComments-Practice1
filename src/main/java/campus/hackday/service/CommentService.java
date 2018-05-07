@@ -14,9 +14,14 @@ public class CommentService {
   @Autowired
   private CommentMapper commentMapper;
 
-  @Cacheable(value = "ehcache")
+//  @Cacheable(value = "ehcache")
   public List<Comment> findAllByPostId(int postId) {
     return commentMapper.findAllByPostId(postId);
+  }
+
+  @Cacheable(value = "ehcache")
+  public List<Comment> findAllByPostIdOrderByTotalDesc(int postId) {
+    return commentMapper.findAllByPostIdOrderByTotalDesc(postId);
   }
 
   public Comment findById(int id) {
