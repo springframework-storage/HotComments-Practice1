@@ -34,6 +34,7 @@ public class RedisPstReactService {
   // 해당 키(댓글ID)에 대한 공감 개수
   public int countMemberByKey(int commentId) {
     return setOperations.members(KEY + Integer.toString(commentId)).size();
+    // return setOperations.size(KEY + Integer.toString(commentId));
   }
 
   // 공감 요청
