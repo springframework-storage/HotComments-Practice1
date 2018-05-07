@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.SetOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.Set;
 
 @Service
 public class RedisNgtReactService {
@@ -51,6 +52,10 @@ public class RedisNgtReactService {
     else {
       setOperations.add(KEY + Integer.toString(commentId), userId);
     }
+  }
+
+  public Set<Integer> members(int commentId) {
+    return setOperations.members(KEY + Integer.toString(commentId));
   }
 
   // 잘 들어갔는지 확인용
