@@ -35,9 +35,6 @@ public class RedisReactController {
     DefaultResponse res = new DefaultResponse();
     Comment comment = commentService.findById(commentId);
 
-    logger.info("pstCount: {}", redisPstReactService.countMemberByKey(comment.getId()));
-    logger.info("pstIsMember: {}", redisPstReactService.isMember(comment.getId(), userId));
-
     redisPstReactService.insert(comment.getId(), userId);
 
 //    res.setData();
@@ -52,9 +49,6 @@ public class RedisReactController {
 
     DefaultResponse res = new DefaultResponse();
     Comment comment = commentService.findById(commentId);
-
-    logger.info("ngtCount: {}", redisNgtReactService.countMemberByKey(comment.getId()));
-    logger.info("ngtIsMember: {}", redisNgtReactService.isMember(comment.getId(), userId));
 
     redisNgtReactService.insert(comment.getId(), userId);
 
