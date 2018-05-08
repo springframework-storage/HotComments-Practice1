@@ -1,7 +1,7 @@
 package campus.hackday.controller;
 
 import campus.hackday.model.DefaultResponse;
-import campus.hackday.redisService.PstNgtCheckService;
+import campus.hackday.redisServiceImpl.PstNgtCheckServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class RedisReactController {
   private Logger logger = LoggerFactory.getLogger(getClass());
 
   @Autowired
-  private PstNgtCheckService checkService;
+  private PstNgtCheckServiceImpl checkService;
 
 
   // 공감/비공감 API 통합

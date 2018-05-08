@@ -3,8 +3,8 @@ package campus.hackday.controller;
 import campus.hackday.dto.Comment;
 import campus.hackday.model.DefaultResponse;
 import campus.hackday.model.StatusEnum;
-import campus.hackday.redisService.ReactCountRedisToMySqlService;
-import campus.hackday.service.CommentService;
+import campus.hackday.redisServiceImpl.ReactRedisToMySqlServiceImpl;
+import campus.hackday.serviceImpl.CommentServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,23 +26,23 @@ public class CommentController {
   Logger logger = LoggerFactory.getLogger(getClass());
 
   @Autowired
-  private CommentService commentService;
+  private CommentServiceImpl commentServiceImpl;
   @Autowired
-  private ReactCountRedisToMySqlService reactCountRedisToMySqlService;
+  private ReactRedisToMySqlServiceImpl reactRedisToMySqlServiceImpl;
 
   @GetMapping("{postId}/comments")
   public ResponseEntity<DefaultResponse> findAllCommentList(@PathVariable int postId) {
     long start = System.currentTimeMillis();    // 시작 시간
 
     DefaultResponse res = new DefaultResponse();
-    List<Comment> comments = commentService.findAllByPostIdOrderByTotalDesc(postId);
+    List<Comment> comments = commentServiceImpl.findAllByPostIdOrderByTotalDesc(postId);
 
     long end = System.currentTimeMillis();      // 끝 시간
     logger.info("EHCache의 수행 시간: {}", Long.toString(end - start));  // 시간 측정
 
-    reactCountRedisToMySqlService.updateReactCount(postId);
-    reactCountRedisToMySqlService.updatePstReact(postId);
-    reactCountRedisToMySqlService.updateNgtReact(postId);
+    reactRedisToMySqlServiceImpl.updateReactCount(postId);
+    reactRedisToMySqlServiceImpl.updatePstReact(postId);
+    reactRedisToMySqlServiceImpl.updateNgtReact(postId);
 
     res.setData(comments);
     res.setMsg(postId + "번 게시글의 댓글 목록");

@@ -3,9 +3,9 @@ package campus.hackday.controller;
 import campus.hackday.dto.Comment;
 import campus.hackday.model.DefaultResponse;
 import campus.hackday.model.StatusEnum;
-import campus.hackday.service.CommentService;
-import campus.hackday.service.NgtReactService;
-import campus.hackday.service.PstReactService;
+import campus.hackday.serviceImpl.CommentServiceImpl;
+import campus.hackday.serviceImpl.NgtReactServiceImpl;
+import campus.hackday.serviceImpl.PstReactServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReactController {
 
   @Autowired
-  private CommentService commentService;
+  private CommentServiceImpl commentServiceImpl;
   @Autowired
-  private PstReactService pstReactService;
+  private PstReactServiceImpl pstReactServiceImpl;
   @Autowired
-  private NgtReactService ngtReactService;
+  private NgtReactServiceImpl ngtReactServiceImpl;
 
   // 공감 요청
   @GetMapping("{postId}/{commentId}/{userId}/pst")
@@ -31,8 +31,8 @@ public class ReactController {
           (@PathVariable int postId, @PathVariable int commentId, @PathVariable int userId) throws IllegalAccessException {
 
     DefaultResponse res = new DefaultResponse();
-    Comment comment = commentService.findById(commentId);
-    pstReactService.pstReact(postId, comment.getId(), userId);
+    Comment comment = commentServiceImpl.findById(commentId);
+    pstReactServiceImpl.pstReact(postId, comment.getId(), userId);
 
     res.setData(comment);
     res.setMsg("공감 요청 결과 comment");
@@ -46,8 +46,8 @@ public class ReactController {
           (@PathVariable int postId, @PathVariable int commentId, @PathVariable int userId) throws IllegalAccessException {
 
     DefaultResponse res = new DefaultResponse();
-    Comment comment = commentService.findById(commentId);
-    ngtReactService.ngtReact(postId, comment.getId(), userId);
+    Comment comment = commentServiceImpl.findById(commentId);
+    ngtReactServiceImpl.ngtReact(postId, comment.getId(), userId);
 
     res.setData(comment);
     res.setMsg("비공감 요청 결과 comment");
