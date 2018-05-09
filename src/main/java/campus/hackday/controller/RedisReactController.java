@@ -21,14 +21,13 @@ public class RedisReactController {
   @Autowired
   private PstNgtCheckServiceImpl checkService;
 
-
   // 공감/비공감 API 통합
-  @GetMapping("{commentId}/{userId}/{react}")
-  public ResponseEntity<DefaultResponse> IntegrationReact
-          (@PathVariable int commentId, @PathVariable int userId, @PathVariable String react) {
+  @GetMapping("{postId}/{commentId}/{userId}/{react}")
+  public ResponseEntity<DefaultResponse> integrationReact
+          (@PathVariable int postId, @PathVariable int commentId, @PathVariable int userId, @PathVariable String react) {
 
     DefaultResponse res = new DefaultResponse();
-    checkService.check(commentId, userId, react);
+    checkService.check(postId, commentId, userId, react);
 
 //    res.setData();
 //    res.setMsg();

@@ -1,4 +1,4 @@
-package campus.hackday.serviceImpl;
+package campus.hackday.mysqlServiceImpl;
 
 import campus.hackday.dto.Comment;
 import campus.hackday.mapper.CommentMapper;
@@ -55,7 +55,7 @@ public class CommentServiceImpl implements CommentService {
   // Redis -> MySQL (pCount, nCount, total) by commentId
   @Override
   public void updateReactCount(int id, int pCount, int nCount) {
-    Comment comment = findById(id);
+    Comment comment = this.findById(id);
     comment.setPCount(pCount);
     comment.setNCount(nCount);
     comment.setTotal(pCount - nCount);

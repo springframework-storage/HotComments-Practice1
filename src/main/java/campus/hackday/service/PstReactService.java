@@ -1,17 +1,18 @@
 package campus.hackday.service;
 
-import campus.hackday.dto.PstReact;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface PstReactService {
 
-  PstReact findByCommentIdAndUserId(int commentId, int userId);
-
-  void pstReact(int postId, int commentId, int userId) throws IllegalAccessException;
-
+  void pstReact(int postId, int commentId, int userId);
   void insert(int commentId, int userId, int postId);
   void delete(int commentId, int userId);
-  void deleteAll();
+
+//  PstReact findByCommentIdAndUserId(int commentId, int userId);
+//  void deleteAll();
+//  int countMemberByKey(int commentId);
+//  Set<Integer> members(int commentId);
+//  boolean isMember(int commentId, int userId);
 
 }

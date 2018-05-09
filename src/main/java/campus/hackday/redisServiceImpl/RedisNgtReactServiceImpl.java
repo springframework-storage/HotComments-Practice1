@@ -1,6 +1,6 @@
 package campus.hackday.redisServiceImpl;
 
-import campus.hackday.redisService.RedisNgtReactService;
+import campus.hackday.service.NgtReactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
 import java.util.Set;
 
 @Service
-public class RedisNgtReactServiceImpl implements RedisNgtReactService {
+public class RedisNgtReactServiceImpl implements NgtReactService {
 
   private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -33,39 +33,46 @@ public class RedisNgtReactServiceImpl implements RedisNgtReactService {
     setOperations = redisTemplate.opsForSet();
   }
 
-  // 해당 키(댓글ID)의 비공감 수
-  @Override
-  public int countMemberByKey(int commentId) {
-    return setOperations.members(KEY + Integer.toString(commentId)).size();
-    // return setOperations.size(KEY + Integer.toString(commentId));
-  }
-
   // 비공감 요청
   @Override
-  public void insert(int commentId, int userId) {
+  public void ngtReact(int postId, int commentId, int userId) {
     // 이미 해당 댓글에 공감했을 경우
     if (redisPstReactServiceImpl.isMember(commentId, userId)) {
       logger.error("이미 이 댓글에 공감하셨습니다.");
     }
     // 이미 해당 댓글에 비공감 했던 경우 비공감 삭제
     else if (this.isMember(commentId, userId)) {
-      setOperations.remove(KEY + Integer.toString(commentId), userId);
+      this.delete(commentId, userId);
     }
     // 둘 다 아니라면 비공감 삽입
     else {
-      setOperations.add(KEY + Integer.toString(commentId), userId);
+      this.insert(commentId, userId, postId);
     }
   }
 
   @Override
+  public void insert(int commentId, int userId, int postId) {
+    this.setOperations.add(KEY + Integer.toString(commentId), userId);
+  }
+
+  @Override
+  public void delete(int commentId, int userId) {
+    this.setOperations.remove(KEY + Integer.toString(commentId), userId);
+  }
+
   public Set<Integer> members(int commentId) {
-    return setOperations.members(KEY + Integer.toString(commentId));
+    return this.setOperations.members(KEY + Integer.toString(commentId));
   }
 
   // 잘 들어갔는지 확인용
-  @Override
   public boolean isMember(int commentId, int userId) {
-    return setOperations.isMember(KEY + Integer.toString(commentId), userId);
+    return this.setOperations.isMember(KEY + Integer.toString(commentId), userId);
+  }
+
+  // 해당 키(댓글ID)의 비공감 수
+  public int countMemberByKey(int commentId) {
+    return this.setOperations.members(KEY + Integer.toString(commentId)).size();
+    // return setOperations.size(KEY + Integer.toString(commentId));
   }
 
 }

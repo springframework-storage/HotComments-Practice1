@@ -1,10 +1,10 @@
 package campus.hackday.redisServiceImpl;
 
 import campus.hackday.dto.Comment;
-import campus.hackday.redisService.ReactRedisToMySqlService;
-import campus.hackday.serviceImpl.CommentServiceImpl;
-import campus.hackday.serviceImpl.NgtReactServiceImpl;
-import campus.hackday.serviceImpl.PstReactServiceImpl;
+import campus.hackday.service.ReactDataCopyService;
+import campus.hackday.mysqlServiceImpl.CommentServiceImpl;
+import campus.hackday.mysqlServiceImpl.NgtReactServiceImpl;
+import campus.hackday.mysqlServiceImpl.PstReactServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +14,22 @@ import java.util.List;
 
 @SuppressWarnings("Duplicates")
 @Service
-public class ReactRedisToMySqlServiceImpl implements ReactRedisToMySqlService {
+public class ReactDataCopyServiceImpl implements ReactDataCopyService {
 
-  Logger logger = LoggerFactory.getLogger(getClass());
+  private Logger logger = LoggerFactory.getLogger(getClass());
 
   @Autowired
   private RedisPstReactServiceImpl redisPstReactServiceImpl;
+
   @Autowired
   private RedisNgtReactServiceImpl redisNgtReactServiceImpl;
+
   @Autowired
   private CommentServiceImpl commentServiceImpl;
+
   @Autowired
   private PstReactServiceImpl pstReactServiceImpl;
+
   @Autowired
   private NgtReactServiceImpl ngtReactServiceImpl;
 
@@ -66,9 +70,7 @@ public class ReactRedisToMySqlServiceImpl implements ReactRedisToMySqlService {
         if (redisPstReactServiceImpl.isMember(c.getId(), userId) == true) {
           pstReactServiceImpl.insert(c.getId(), userId, postId);
         }
-
       }
-
     }
 
   }
@@ -95,9 +97,7 @@ public class ReactRedisToMySqlServiceImpl implements ReactRedisToMySqlService {
         if (redisNgtReactServiceImpl.isMember(c.getId(), userId) == true) {
           ngtReactServiceImpl.insert(c.getId(), userId, postId);
         }
-
       }
-
     }
 
   }
