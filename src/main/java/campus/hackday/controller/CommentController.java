@@ -43,6 +43,7 @@ public class CommentController {
 
     logger.info("EHCache의 수행 시간: {}", Long.toString(end - start));  // 시간 측정
 
+    // TODO 개선
     reactDataCopyService.updateReactCount(postId);
     reactDataCopyService.updatePstReact(postId);
     reactDataCopyService.updateNgtReact(postId);
