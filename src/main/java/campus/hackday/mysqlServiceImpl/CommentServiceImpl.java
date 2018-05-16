@@ -2,18 +2,25 @@ package campus.hackday.mysqlServiceImpl;
 
 import campus.hackday.dto.Comment;
 import campus.hackday.mapper.CommentMapper;
+import campus.hackday.service.CacheService;
 import campus.hackday.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CommentServiceImpl implements CommentService {
+public class CommentServiceImpl implements CommentService, CacheService {
 
   @Autowired
   private CommentMapper commentMapper;
+
+  @Override
+  public List<Comment> findAll() {
+    return commentMapper.findAll();
+  }
 
 //  @Cacheable(value = "ehcache")
   @Override
@@ -62,4 +69,7 @@ public class CommentServiceImpl implements CommentService {
     commentMapper.updateReactCount(comment);
   }
 
+  @Override
+  @CacheEvict(value = "ehcache")
+  public void refresh() { }
 }
