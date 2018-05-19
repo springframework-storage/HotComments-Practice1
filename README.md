@@ -4,7 +4,6 @@
 ---
 
 ### Step 1. MySQL + Redis
-### Step 2. MySQL + Redis + MongoDB - 보류
 
 ---
 
@@ -89,10 +88,6 @@ pom.xml
 * MySQL - 댓글 조회를 위한 RDBMS
 * Redis - 공감/비공감 처리를 위한 NoSQL
 * EHCache - RDBMS에서 조회한 댓글 데이터를 캐싱
-
-## 기타 메모
-### title
-* anything
 
 ## 저자
 * **조민국** - [MinGOODdev](https://github.com/MinGOODdev)
