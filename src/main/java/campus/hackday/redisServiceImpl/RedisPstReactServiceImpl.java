@@ -50,27 +50,25 @@ public class RedisPstReactServiceImpl implements PstReactService {
     }
   }
 
-  @Override
-  public void insert(int commentId, int userId, int postId) {
-    this.setOperations.add(KEY + Integer.toString(commentId), userId);
-  }
-
-  @Override
-  public void delete(int commentId, int userId) {
-    this.setOperations.remove(KEY + Integer.toString(commentId), userId);
-  }
-
-  public Set<Integer> members(int commentId) {
-    return this.setOperations.members(KEY + Integer.toString(commentId));
-  }
-
   // 잘 들어갔는지 확인용
   public boolean isMember(int commentId, int userId) {
     return this.setOperations.isMember(KEY + Integer.toString(commentId), userId);
   }
 
+  private void insert(int commentId, int userId, int postId) {
+    this.setOperations.add(KEY + Integer.toString(commentId), userId);
+  }
+
+  private void delete(int commentId, int userId) {
+    this.setOperations.remove(KEY + Integer.toString(commentId), userId);
+  }
+
+  private Set<Integer> members(int commentId) {
+    return this.setOperations.members(KEY + Integer.toString(commentId));
+  }
+
   // 해당 키(댓글ID)의 공감 수
-  public int countMemberByKey(int commentId) {
+  private int countMemberByKey(int commentId) {
     return this.setOperations.members(KEY + Integer.toString(commentId)).size();
     // return setOperations.size(KEY + Integer.toString(commentId));
   }
