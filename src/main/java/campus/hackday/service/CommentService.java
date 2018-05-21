@@ -8,6 +8,7 @@ import java.util.List;
 @Service
 public interface CommentService {
 
+  List<Comment> findAll();
   List<Comment> findAllByPostId(int postId);
   List<Comment> findAllByPostIdOrderByTotalDesc(int postId);
   Comment findById(int id);

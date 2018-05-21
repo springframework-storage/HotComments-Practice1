@@ -4,6 +4,11 @@
 
 <mapper namespace="campus.hackday.mapper.CommentMapper">
 
+    <select id="findAll" resultType="Comment">
+        SELECT m.*
+        FROM Comment m
+    </select>
+
     <select id="findAllByPostId" resultType="Comment">
         SELECT m.*
         FROM Comment m

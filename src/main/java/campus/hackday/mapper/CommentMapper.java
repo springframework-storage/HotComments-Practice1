@@ -8,6 +8,7 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
 
+  List<Comment> findAll();
   List<Comment> findAllByPostId(int postId);
   List<Comment> findAllByPostIdOrderByTotalDesc(int postId);
   Comment findById(int id);

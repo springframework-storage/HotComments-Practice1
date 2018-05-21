@@ -8,6 +8,7 @@ import campus.hackday.mysqlServiceImpl.PstReactServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,7 +34,10 @@ public class ReactDataCopyServiceImpl implements ReactDataCopyService {
   @Autowired
   private NgtReactServiceImpl ngtReactServiceImpl;
 
-  // 공감/비공감 개수 갱신
+  /**
+   * 공감/비공감 수 갱신
+   * @param postId
+   */
   @Override
   public void updateReactCount(int postId) {
     List<Comment> comments = commentServiceImpl.findAllByPostId(postId);
@@ -48,7 +52,10 @@ public class ReactDataCopyServiceImpl implements ReactDataCopyService {
     }
   }
 
-  // MySQL(PstReact)에 해당 Redis 데이터 저장
+  /**
+   * MySQL(PstReact)에 해당 Redis 데이터 저장
+   * @param postId
+   */
   @Override
   public void updatePstReact(int postId) {
     List<Comment> comments = commentServiceImpl.findAllByPostId(postId);
@@ -75,7 +82,10 @@ public class ReactDataCopyServiceImpl implements ReactDataCopyService {
 
   }
 
-  // MySQL(NgtReact)에 해당 Redis 데이터 저장
+  /**
+   * MySQL(NgtReact)에 해당 Redis 데이터 저장
+   * @param postId
+   */
   @Override
   public void updateNgtReact(int postId) {
     List<Comment> comments = commentServiceImpl.findAllByPostId(postId);
@@ -99,7 +109,23 @@ public class ReactDataCopyServiceImpl implements ReactDataCopyService {
         }
       }
     }
+  }
 
+  /**
+   * MySQL에 Redis 데이터를 꺼내 연산 후 저장하는 스케줄러
+   */
+  @Scheduled(cron = "*/1 * * * * *")
+  public void schedulingUpdate() {
+    logger.info("scheduler");
+
+    List<Comment> comments = commentServiceImpl.findAll();
+
+    for(Comment c : comments) {
+      int pCount = redisPstReactServiceImpl.countMemberByKey(c.getId());
+      int nCount = redisNgtReactServiceImpl.countMemberByKey(c.getId());
+
+      commentServiceImpl.updateReactCount(c.getId(), pCount, nCount);
+    }
   }
 
 }
