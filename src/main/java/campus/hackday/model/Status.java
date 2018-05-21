@@ -1,5 +1,5 @@
 package campus.hackday.model;
 
-public enum StatusEnum {
+public enum Status {
   SUCCESS, FAIL
 }

@@ -2,7 +2,7 @@ package campus.hackday.controller;
 
 import campus.hackday.dto.Comment;
 import campus.hackday.model.DefaultResponse;
-import campus.hackday.model.StatusEnum;
+import campus.hackday.model.Status;
 import campus.hackday.mysqlServiceImpl.CommentServiceImpl;
 import campus.hackday.mysqlServiceImpl.NgtReactServiceImpl;
 import campus.hackday.mysqlServiceImpl.PstReactServiceImpl;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("comment")
+@RequestMapping("react")
 public class ReactController {
 
   @Autowired
@@ -38,7 +38,7 @@ public class ReactController {
 
     res.setData(comment);
     res.setMsg("공감 요청 결과 comment");
-    res.setStatusEnum(StatusEnum.SUCCESS);
+    res.setStatus(Status.SUCCESS);
     return new ResponseEntity<>(res, HttpStatus.OK);
   }
 
@@ -53,7 +53,7 @@ public class ReactController {
 
     res.setData(comment);
     res.setMsg("비공감 요청 결과 comment");
-    res.setStatusEnum(StatusEnum.SUCCESS);
+    res.setStatus(Status.SUCCESS);
     return new ResponseEntity<>(res, HttpStatus.OK);
   }
 }

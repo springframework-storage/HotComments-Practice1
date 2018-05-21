@@ -1,7 +1,11 @@
 package campus.hackday.controller;
 
+import campus.hackday.dto.Comment;
 import campus.hackday.model.DefaultResponse;
-import campus.hackday.redisServiceImpl.PstNgtCheckServiceImpl;
+import campus.hackday.model.ReactParam;
+import campus.hackday.model.Status;
+import campus.hackday.mysqlServiceImpl.CommentServiceImpl;
+import campus.hackday.redisServiceImpl.CheckToReactServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +23,23 @@ public class RedisReactController {
   private Logger logger = LoggerFactory.getLogger(getClass());
 
   @Autowired
-  private PstNgtCheckServiceImpl checkService;
+  private CheckToReactServiceImpl checkToReactService;
+
+  @Autowired
+  private CommentServiceImpl commentService;
 
   // 공감/비공감 API 통합
   @GetMapping("{postId}/{commentId}/{userId}/{react}")
   public ResponseEntity<DefaultResponse> integrationReact
-          (@PathVariable int postId, @PathVariable int commentId, @PathVariable int userId, @PathVariable String react) {
+          (@PathVariable int postId, @PathVariable int commentId, @PathVariable int userId, @PathVariable ReactParam reactParam) {
 
     DefaultResponse res = new DefaultResponse();
-    checkService.check(postId, commentId, userId, react);
+    Comment comment = commentService.findById(commentId);
+    checkToReactService.checkToReact(postId, comment.getId(), userId, reactParam);
 
-//    res.setData();
-//    res.setMsg();
-//    res.setStatusEnum(StatusEnum.SUCCESS);
+    res.setData(comment);
+    res.setMsg(commentId + "번 댓글에 대한 요청입니다.");
+    res.setStatus(Status.SUCCESS);
     return new ResponseEntity<>(res, HttpStatus.OK);
   }
 
